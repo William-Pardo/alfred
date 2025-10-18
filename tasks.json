@@ -1,0 +1,9 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Alfred: Run", "type": "shell", "command": "npm run alfred" },
+    { "label": "Alfred: Watch", "type": "shell", "command": "npm run alfred:watch" },
+    { "label": "Alfred: Plan Only", "type": "shell", "command": "npm run alfred:plan" },
+    { "label": "Alfred: Evaluate", "type": "shell", "command": "npm run alfred:eval" }
+  ]
+}

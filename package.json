@@ -1,0 +1,20 @@
+{
+  "name": "alfred-agent",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "alfred": "node alfred/index.js",
+    "alfred:watch": "node alfred/watcher.js",
+    "alfred:plan": "node alfred/index.js --plan-only",
+    "alfred:eval": "node alfred/index.js --eval-only"
+  },
+  "dependencies": {
+    "diff": "^5.2.0",
+    "dotenv": "^16.4.5",
+    "execa": "^9.4.0",
+    "fast-glob": "^3.3.2",
+    "node-fetch": "^3.3.2",
+    "simple-git": "^3.27.0"
+  }
+}

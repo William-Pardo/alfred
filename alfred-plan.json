@@ -1,0 +1,38 @@
+{
+  "tasks": [
+    {
+      "id": "T1",
+      "kind": "modify",
+      "path": "package.json",
+      "reason": "Add build and lint scripts to meet acceptance criteria for build and lint ok"
+    },
+    {
+      "id": "T2",
+      "kind": "modify",
+      "path": "package.json",
+      "reason": "Add devDependencies for Vite (bundler for build and bundle size control) and ESLint (for linting)"
+    },
+    {
+      "id": "T3",
+      "kind": "create",
+      "path": "index.html",
+      "reason": "Create basic HTML structure with title 'Hola Alfred' to meet page load acceptance criterion"
+    },
+    {
+      "id": "T4",
+      "kind": "create",
+      "path": "vite.config.js",
+      "reason": "Configure Vite for building the static site with bundle size constraints"
+    },
+    {
+      "id": "T5",
+      "kind": "create",
+      "path": ".eslintrc.js",
+      "reason": "Set up basic ESLint configuration for lint ok and basic a11y checks"
+    }
+  ],
+  "metrics": {
+    "targetScore": 0.92,
+    "maxLoops": 5
+  }
+}
