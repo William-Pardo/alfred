@@ -1,9 +1,9 @@
-﻿import { defineConfig } from "vite";
-
-export default defineConfig({
-  root: ".",
-  build: {
-    outDir: "dist",
-    emptyOutDir: true
-  }
-});
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+        }
+      }
+    }
