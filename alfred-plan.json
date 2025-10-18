@@ -2,33 +2,27 @@
   "tasks": [
     {
       "id": "T1",
-      "kind": "modify",
-      "path": "package.json",
-      "reason": "Add build and lint scripts to meet acceptance criteria for build and lint ok"
+      "kind": "create",
+      "path": "public/index.html",
+      "reason": "Create the main HTML page with title 'Hola Alfred' to satisfy the acceptance criterion for page loading."
     },
     {
       "id": "T2",
-      "kind": "modify",
-      "path": "package.json",
-      "reason": "Add devDependencies for Vite (bundler for build and bundle size control) and ESLint (for linting)"
+      "kind": "create",
+      "path": "server.js",
+      "reason": "Create a simple Node.js HTTP server to serve the static HTML file from public directory, enabling the page to load."
     },
     {
       "id": "T3",
-      "kind": "create",
-      "path": "index.html",
-      "reason": "Create basic HTML structure with title 'Hola Alfred' to meet page load acceptance criterion"
+      "kind": "modify",
+      "path": "package.json",
+      "reason": "Add 'start' script to run the server and 'devDependencies' for ESLint to support linting; add 'lint' and 'build' scripts for acceptance criteria."
     },
     {
       "id": "T4",
       "kind": "create",
-      "path": "vite.config.js",
-      "reason": "Configure Vite for building the static site with bundle size constraints"
-    },
-    {
-      "id": "T5",
-      "kind": "create",
-      "path": ".eslintrc.js",
-      "reason": "Set up basic ESLint configuration for lint ok and basic a11y checks"
+      "path": ".eslintrc.json",
+      "reason": "Configure basic ESLint for linting to meet 'Lint ok' criterion with basic accessibility checks."
     }
   ],
   "metrics": {

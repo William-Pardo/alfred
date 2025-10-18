@@ -43,20 +43,31 @@ export async function readFileSafe(p) {
 }
 
 export async function applyUnifiedDiff(diffText) {
-  if (!diffText || !diffText.includes("--- ") || !diffText.includes("+++ ")) return false;
+  if (!diffText) return false;
+
+  // Normaliza: algunos modelos no ponen prefijos a/ b/
+  let patch = diffText.trim();
+  if (!/^---\s/.test(patch) || !/^\+\+\+\s/m.test(patch)) return false;
+
+  // Intenta con git apply, ENVIANDO el patch por STDIN
   try {
-    await git.raw(["apply", "--whitespace=fix"], diffText);
+    await execa("git", ["apply", "--whitespace=fix"], { input: patch });
     return true;
-  } catch {
+  } catch (e) {
+    // Fallback: creación básica de archivo a partir de líneas con '+'
     try {
-      const m = diffText.match(/\+\+\+\s+b\/(.+)\n/);
-      if (!m) return false;
-      const filePath = m[1];
-      const plusLines = diffText
+      const m = patch.match(/\+\+\+\s+b\/(.+)\n/);
+      // si no hay b/..., intenta sin prefijo
+      const filePath = m?.[1] || (patch.match(/\+\+\+\s+(.+)\n/)?.[1]);
+      if (!filePath) return false;
+
+      const plusLines = patch
         .split("\n")
         .filter(l => l.startsWith("+") && !l.startsWith("+++"))
         .map(l => l.slice(1));
+
       await fs.mkdir(path.dirname(filePath), { recursive: true });
+      // Si el archivo ya existía, no sabemos dónde insertar → como fallback, lo sobrescribimos
       await fs.writeFile(filePath, plusLines.join("\n"), "utf8");
       return true;
     } catch {
