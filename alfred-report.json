@@ -1,15 +1,15 @@
 {
-  "loop": 0,
+  "loop": 1,
   "score": 0,
   "target": 0.92,
   "testRes": "NO_TEST_SCRIPT",
   "buildRes": "NO_BUILD_SCRIPT",
   "bundleKB": 0,
   "gaps": [
-    "No build script provided, failing 'Build ok' criterion",
-    "No lint results or script, failing 'Lint ok' criterion",
-    "No verification or tests for page title 'Hola Alfred', failing criterion",
-    "No test script provided",
-    "Basic a11y not verified"
+    "No build script provided, build criteria not met",
+    "No test script provided, tests not executed",
+    "Lint criteria not evaluated or not met",
+    "Page does not load title 'Hola Alfred'",
+    "Accessibility basic requirements not verified"
   ]
 }
