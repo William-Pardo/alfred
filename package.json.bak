@@ -1,9 +1,9 @@
-  "version": "1.0.0",
-  "scripts": {
-    "build": "echo 'Build successful' && mkdir -p dist && cp index.html dist/",
-    "lint": "echo 'Lint ok'",
-    "test": "echo 'Tests ok'"
-  },
-  "devDependencies": {
-    "eslint": "^8.0.0"
-  }
+  "name": "my-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "vite": "^5.4.8"

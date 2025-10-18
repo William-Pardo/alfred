@@ -1,12 +1,9 @@
-import { defineConfig } from 'vite'
+﻿import { defineConfig } from "vite";
 
 export default defineConfig({
+  root: ".",
   build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-    minify: 'esbuild',
-    target: 'es2020',
-    cssMinify: true,
-    reportCompressedSize: true
+    outDir: "dist",
+    emptyOutDir: true
   }
-})
+});
