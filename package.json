@@ -1,13 +1,2 @@
-  "name": "project",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext .js --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "test": "echo 'Test placeholder' && exit 0"
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "vite": "^5.0.8"
-  }
+  "scripts": {
+  },

@@ -1,15 +1,14 @@
 {
-  "loop": 2,
+  "loop": 3,
   "score": 0,
   "target": 0.92,
   "testRes": "NO_TEST_SCRIPT",
   "buildRes": "NO_BUILD_SCRIPT",
   "bundleKB": 0,
   "gaps": [
-    "No build script provided, 'Build ok' criterion unmet",
-    "No lint results, 'Lint ok' criterion unmet",
-    "No tests or build output, 'Página carga el título \"Hola Alfred\"' criterion unmet",
-    "No test script, tests not executed",
-    "Basic a11y not verified"
+    "No build script provided, failing 'Build ok' criterion",
+    "No lint check performed, failing 'Lint ok' criterion",
+    "No tests or build to verify page title 'Hola Alfred'",
+    "No accessibility checks for basic a11y requirements"
   ]
 }
