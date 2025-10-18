@@ -1,15 +1,16 @@
 {
-  "loop": 2,
+  "loop": 3,
   "score": 0,
   "target": 0.92,
   "testRes": "NO_TEST_SCRIPT",
   "buildRes": "NO_BUILD_SCRIPT",
   "bundleKB": 0,
   "gaps": [
-    "No build script provided, fails 'Build ok' criterion",
-    "No test script provided, tests not executed",
-    "Lint status unknown, fails 'Lint ok' criterion",
-    "No evidence of page loading with title 'Hola Alfred', fails criterion",
-    "Bundle size 0 KB indicates no build output, project appears empty"
+    "No build script available, failing 'Build ok' criterion",
+    "No test script available, impacting verification",
+    "Lint not performed, failing 'Lint ok' criterion",
+    "Page title 'Hola Alfred' cannot be verified due to no build",
+    "Bundle size 0 indicates no application built",
+    "Basic accessibility not assessed"
   ]
 }
