@@ -1,5 +1,5 @@
 {
-  "loop": 2,
+  "loop": 3,
   "score": 0,
   "target": 0.92,
   "testRes": "NO_TEST_SCRIPT",
@@ -8,8 +8,8 @@
   "gaps": [
     "No build script provided, build criterion not met",
     "No test script provided, tests not executed",
-    "Lint not verified due to absence of build/test setup",
-    "Page title 'Hola Alfred' not verifiable without build",
-    "Accessibility basic requirements not checked"
+    "Lint not checked or verified",
+    "Page title 'Hola Alfred' cannot be verified without build or tests",
+    "Accessibility basic level not assessed"
   ]
 }

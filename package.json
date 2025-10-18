@@ -1,39 +1,16 @@
 {
-  "name": "my-project",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "test-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "build": "esbuild src/index.js --bundle --outfile=dist/bundle.js --minify --format=iife"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "vite": "^5.4.8"
+    "esbuild": "^0.19.12"
   }
 }
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + JS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
-</html>
-console.log('Hello world');
-export default {
-}
-# Dependencies
-node_modules/
-
-# My Project
-
-This is a minimal Vite project.
-
-Run `npm install` then `npm run build` to verify.
+console.log('Hello World!');
