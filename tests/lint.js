@@ -1,0 +1,1 @@
+console.log('Lint check placeholder');
