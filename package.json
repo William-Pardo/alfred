@@ -1,3 +1,15 @@
-    "build": "echo 'Build placeholder' && exit 0",
-    "lint": "echo 'Lint placeholder' && exit 0",
+  "name": "my-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
     "test": "echo 'Test placeholder' && exit 0"
+,
+  "devDependencies": {
+    "vite": "^5.2.0",
+    "eslint": "^8.57.0"
+  }

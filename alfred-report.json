@@ -1,15 +1,15 @@
 {
-  "loop": 4,
+  "loop": 0,
   "score": 0,
   "target": 0.92,
   "testRes": "NO_TEST_SCRIPT",
   "buildRes": "NO_BUILD_SCRIPT",
   "bundleKB": 0,
   "gaps": [
-    "No build script provided, failing 'Build ok' criterion",
-    "No test script provided, failing test-related checks",
-    "Lint not verified, failing 'Lint ok' criterion",
-    "Page title 'Hola Alfred' not loaded or verified, failing 'Página carga el título \"Hola Alfred\"' criterion",
-    "Bundle size 0 indicates no actual build or content, though under max limit"
+    "No build script provided, cannot verify 'Build ok'",
+    "No lint results, cannot verify 'Lint ok'",
+    "No tests or build output, cannot verify 'Página carga el título \"Hola Alfred\"'",
+    "No test script provided",
+    "Accessibility basic not verified due to lack of build/tests"
   ]
 }
