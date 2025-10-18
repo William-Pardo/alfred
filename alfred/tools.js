@@ -45,29 +45,38 @@ export async function readFileSafe(p) {
 export async function applyUnifiedDiff(diffText) {
   if (!diffText) return false;
 
-  // Normaliza: algunos modelos no ponen prefijos a/ b/
-  let patch = diffText.trim();
-  if (!/^---\s/.test(patch) || !/^\+\+\+\s/m.test(patch)) return false;
+  const protectedFiles = [
+    "package.json", "vite.config.js", "eslint.config.js", "postcss.config.js"
+  ];
 
-  // Intenta con git apply, ENVIANDO el patch por STDIN
+  const touchesProtected = protectedFiles.some(f =>
+    new RegExp(`\\+\\+\\+\\s+(?:b\\/)?${f.replace(/\\./g, "\\\\.")}(\\r?\\n|$)`).test(diffText) ||
+    new RegExp(`---\\s+(?:a\\/)?${f.replace(/\\./g, "\\\\.")}(\\r?\\n|$)`).test(diffText)
+  );
+  if (touchesProtected) {
+    console.log("[applyUnifiedDiff] IGNORADO (archivo protegido)");
+    return false;
+  }
+
+  const patch = diffText.trim();
+  if (!/^---\\s/m.test(patch) || !/^\+\+\+\s/m.test(patch)) return false;
+
   try {
+    const { execa } = await import("execa");
     await execa("git", ["apply", "--whitespace=fix"], { input: patch });
     return true;
-  } catch (e) {
-    // Fallback: creación básica de archivo a partir de líneas con '+'
+  } catch {
     try {
-      const m = patch.match(/\+\+\+\s+b\/(.+)\n/);
-      // si no hay b/..., intenta sin prefijo
-      const filePath = m?.[1] || (patch.match(/\+\+\+\s+(.+)\n/)?.[1]);
-      if (!filePath) return false;
-
+      const m = patch.match(/\+\+\+\s+(?:b\/)?(.+)\n/);
+      if (!m) return false;
+      const filePath = m[1];
       const plusLines = patch
         .split("\n")
         .filter(l => l.startsWith("+") && !l.startsWith("+++"))
         .map(l => l.slice(1));
-
-      await fs.mkdir(path.dirname(filePath), { recursive: true });
-      // Si el archivo ya existía, no sabemos dónde insertar → como fallback, lo sobrescribimos
+      const pathMod = await import("node:path");
+      const fs = await import("node:fs/promises");
+      await fs.mkdir(pathMod.dirname(filePath), { recursive: true });
       await fs.writeFile(filePath, plusLines.join("\n"), "utf8");
       return true;
     } catch {
@@ -134,3 +143,4 @@ export async function commitSafe(msg) {
     // si no es repo git, ignorar
   }
 }
+

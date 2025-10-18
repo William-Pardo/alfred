@@ -1,4 +1,19 @@
-import "dotenv/config";
+ï»¿import "dotenv/config";
+const _origConsoleLog = console.log.bind(console);
+if (process.env.ALFRED_QUIET === "1") {
+  console.log = () => {};
+}
+
+function getTarget(plan) {
+  const envT = Number(process.env.ALFRED_TARGET || 0);
+  const planT = (plan?.metrics?.targetScore ?? 0.9);
+  return Math.min(0.99, Math.max(0.5, envT || planT));
+}
+function getMaxLoops(plan) {
+  const envL = Number(process.env.ALFRED_MAX_LOOPS || 0);
+  const planL = (plan?.metrics?.maxLoops ?? 3);
+  return Math.min(6, envL || planL);
+}
 import fs from "node:fs/promises";
 import { chat } from "./llm.js";
 import { plannerPrompt, editorPrompt, evaluatorPrompt } from "./prompts.js";
@@ -11,14 +26,16 @@ const MODEL_PLAN = process.env.MODEL_PLAN || "x-ai/grok-4-fast";
 const MODEL_EDIT = process.env.MODEL_EDIT || "x-ai/grok-4-fast";
 const MODEL_EVAL = process.env.MODEL_EVAL || "x-ai/grok-4-fast";
 const DEBUG = process.env.ALFRED_DEBUG === "1";
+const QUIET  = process.env.ALFRED_QUIET === "1";
+const log = (...a) => { if (!QUIET) console.log(...a); };
 
 function extractJson(s) {
-  if (!s) throw new Error("Respuesta vacía");
+  if (!s) throw new Error("Respuesta vacÃ­a");
   // quita fences ```...```
   s = s.replace(/```json|```/gi, "");
   // intenta parse directo
   try { return JSON.parse(s); } catch {}
-  // busca primer '{' y último '}' y reintenta
+  // busca primer '{' y Ãºltimo '}' y reintenta
   const i = s.indexOf("{");
   const j = s.lastIndexOf("}");
   if (i >= 0 && j > i) {
@@ -37,7 +54,7 @@ async function main() {
   const repoTree = await scanRepoTree();
   const pkg = await readPackageJson();
 
-  console.log("[Alfred] calling planner… model=", MODEL_PLAN);
+  console.log("[Alfred] calling plannerâ€¦ model=", MODEL_PLAN);
   let planRaw = "";
   try {
     planRaw = await chat(
@@ -53,7 +70,7 @@ async function main() {
   let plan;
   try { plan = extractJson(planRaw); }
   catch (e) {
-    console.error("[Alfred] planner JSON inválido. preview:", String(planRaw).slice(0,300));
+    console.error("[Alfred] planner JSON invÃ¡lido. preview:", String(planRaw).slice(0,300));
     throw e;
   }
 
@@ -67,12 +84,12 @@ async function main() {
 
   let loop = 0;
   let score = 0;
-  const maxLoops = Math.min(6, Number(process.env.ALFRED_MAX_LOOPS||0) || (plan?.metrics?.maxLoops ?? 3));
-  const target = Math.min(0.99, Math.max(0.5, plan?.metrics?.targetScore ?? 0.9));
+  const maxLoops = getMaxLoops(plan);
+  const target = getTarget(plan);
   console.log("[Alfred] target=", target, "maxLoops=", maxLoops);
 
   while (loop < maxLoops && score < target) {
-    console.log("[Alfred] loop", loop+1, "edit phase…");
+    console.log("[Alfred] loop", loop+1, "edit phaseâ€¦");
     for (const t of (plan.tasks || [])) {
       if (!t?.path) continue;
       const fileContent = await readFileSafe(t.path);
@@ -91,7 +108,7 @@ async function main() {
       if (ok) await commitSafe(`[alfred] ${(t.id || "")} ${t.path}`);
     }
 
-    console.log("[Alfred] validate phase…");
+    console.log("[Alfred] validate phaseâ€¦");
     const testRes = await runTests();
     const buildRes = await runBuild();
     const bundleKB = await measureBundle();
@@ -112,7 +129,7 @@ async function main() {
     let ev;
     try { ev = extractJson(evalRaw); }
     catch (e) {
-      console.error("[Alfred] evaluator JSON inválido. preview:", String(evalRaw).slice(0,300));
+      console.error("[Alfred] evaluator JSON invÃ¡lido. preview:", String(evalRaw).slice(0,300));
       throw e;
     }
 
@@ -137,3 +154,5 @@ async function main() {
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
+
+

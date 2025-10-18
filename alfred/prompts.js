@@ -1,8 +1,8 @@
-﻿export function plannerPrompt(spec, repoTree, pkgJson) {
+export function plannerPrompt(spec, repoTree, pkgJson) {
   return [
     { role: "system", content:
 `Eres un arquitecto de software.
-Devuelves SOLO un JSON válido, sin Markdown, sin backticks, sin texto extra. Estructura:
+Devuelves SOLO un JSON v�lido, sin Markdown, sin backticks, sin texto extra. Estructura:
 {
  "tasks":[{"id":"T1","kind":"create|modify|test|lint","path":"...","reason":"..."}],
  "metrics":{"targetScore":0.92,"maxLoops":5}
@@ -18,10 +18,13 @@ PACKAGE_JSON:
 ${JSON.stringify(pkgJson ?? {}, null, 2)}
 
 Reglas:
-- Tareas atómicas (<=20 por ciclo).
+- NO modifiques estos archivos base: package.json, vite.config.js, eslint.config.js, postcss.config.js.
+- Si necesitas cambios en build/lint, sugiere tareas alternativas sin tocarlos.
+Reglas:
+- Tareas at�micas (<=20 por ciclo).
 - Prioriza componentes vinculados al SPEC.
 - Usa el stack detectado.
-- Responde SOLO JSON válido, sin comentarios ni Markdown.`}
+- Responde SOLO JSON v�lido, sin comentarios ni Markdown.`}
   ];
 }
 
@@ -30,7 +33,7 @@ export function editorPrompt(task, fileContent, context) {
     { role: "system", content:
 `Eres un editor determinista.
 Devuelves SOLO un patch unified diff (git), sin Markdown y sin texto extra.
-Debe empezar con líneas '--- ' y '+++ '.` },
+Debe empezar con l�neas '--- ' y '+++ '.` },
     { role: "user", content:
 `TAREA: ${JSON.stringify(task)}
 ARCHIVO_ORIGINAL (${task.path}):
@@ -46,7 +49,7 @@ Entrega SOLO el diff unificado correcto (sin backticks).` }
 export function evaluatorPrompt(spec, testRes, buildRes, metrics, kiloLogs) {
   return [
     { role: "system", content:
-`Eres un auditor QA. Devuelves SOLO JSON válido, sin Markdown:
+`Eres un auditor QA. Devuelves SOLO JSON v�lido, sin Markdown:
 {
  "score": 0..1,
  "gaps": ["..."],
@@ -69,8 +72,8 @@ KILO_LOGS:
 ${kiloLogs ?? ""}
 
 Criterios:
-- Suma por criterios de aceptación cumplidos.
+- Suma por criterios de aceptaci�n cumplidos.
 - Tests/build OK suman. bundleKB alto resta.
-- Devuelve SOLO JSON válido (sin backticks).` }
+- Devuelve SOLO JSON v�lido (sin backticks).` }
   ];
 }
