@@ -1,7 +1,2 @@
-    "build": "echo 'Build placeholder' && exit 0",
-    "lint": "eslint .",
-    "test": "echo 'Test placeholder' && exit 0",
-    "start": "node server.js"
-  "devDependencies": {
-    "eslint": "^8.0.0"
-  }
+  "scripts": {
+  },
