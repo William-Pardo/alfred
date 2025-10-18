@@ -4,25 +4,7 @@
       "id": "T1",
       "kind": "modify",
       "path": "index.html",
-      "reason": "Set document title to 'Hola Alfred' to satisfy acceptance criterion 'Página carga el título \"Hola Alfred\"'."
-    },
-    {
-      "id": "T2",
-      "kind": "modify",
-      "path": "tests/smoke.js",
-      "reason": "Update smoke test to verify the page title is 'Hola Alfred' after build, ensuring acceptance criterion is met."
-    },
-    {
-      "id": "T3",
-      "kind": "lint",
-      "path": ".",
-      "reason": "Run lint to ensure 'Lint ok' criterion is satisfied without modifying eslint.config.js."
-    },
-    {
-      "id": "T4",
-      "kind": "test",
-      "path": "tests/smoke.js",
-      "reason": "Execute smoke test to verify build and title loading for 'Build ok' and title criterion."
+      "reason": "Update the HTML title to 'Hola Alfred' to satisfy the acceptance criterion that the page loads with this title."
     }
   ],
   "metrics": {

@@ -1,9 +1,13 @@
 {
   "loop": 0,
-  "score": 1,
-  "target": 0.8,
+  "score": 0.67,
+  "target": 0.92,
   "testRes": "OK",
   "buildRes": "OK",
   "bundleKB": 0,
-  "gaps": []
+  "gaps": [
+    "Lint ok no verificado explícitamente",
+    "Página carga el título \"Hola Alfred\" no verificado explícitamente",
+    "A11y basic no verificado"
+  ]
 }
