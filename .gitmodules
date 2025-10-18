@@ -1,0 +1,4 @@
+[submodule "tools/alfred"]
+	path = tools/alfred
+	url = https://github.com/William-Pardo/alfred.git
+	branch = main
