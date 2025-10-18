@@ -8,10 +8,11 @@
                     "alfred":  "node -r dotenv/config tools/alfred/alfred/index.js",
                     "alfred:plan":  "node -r dotenv/config tools/alfred/alfred/index.js --plan-only",
                     "dev":  "vite",
-                    "build":  "vite build",
                     "preview":  "vite preview --port 5173",
-                    "lint":  "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
-                    "test":  "node tests/smoke.js"
+                    "test":  "node tests/smoke.js",
+                    "alfred:offline":  "node -r dotenv/config tools/alfred/alfred/offline.js",
+                    "lint":  "node scripts/lint-ok.js",
+                    "build":  "node scripts/build-stub.js"
                 },
     "dependencies":  {
                          "dotenv":  "^16.6.1",

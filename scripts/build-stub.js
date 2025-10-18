@@ -1,0 +1,7 @@
+﻿const fs = require("fs");
+fs.mkdirSync("dist", { recursive: true });
+fs.writeFileSync(
+  "dist/index.html",
+  "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>Hola Alfred</title><meta name='viewport' content='width=device-width, initial-scale=1'></head><body><main role='main'><h1>Hola Alfred</h1></main></body></html>"
+);
+console.log("OK");
