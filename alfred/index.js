@@ -1,4 +1,4 @@
-ï»¿import "dotenv/config";
+import "dotenv/config";
 import fs from "node:fs/promises";
 import { chat } from "./llm.js";
 import { plannerPrompt, editorPrompt, evaluatorPrompt } from "./prompts.js";
@@ -13,12 +13,12 @@ const MODEL_EVAL = process.env.MODEL_EVAL || "x-ai/grok-4-fast";
 const DEBUG = process.env.ALFRED_DEBUG === "1";
 
 function extractJson(s) {
-  if (!s) throw new Error("Respuesta vacÃ­a");
+  if (!s) throw new Error("Respuesta vacía");
   // quita fences ```...```
   s = s.replace(/```json|```/gi, "");
   // intenta parse directo
   try { return JSON.parse(s); } catch {}
-  // busca primer '{' y Ãºltimo '}' y reintenta
+  // busca primer '{' y último '}' y reintenta
   const i = s.indexOf("{");
   const j = s.lastIndexOf("}");
   if (i >= 0 && j > i) {
@@ -37,7 +37,7 @@ async function main() {
   const repoTree = await scanRepoTree();
   const pkg = await readPackageJson();
 
-  console.log("[Alfred] calling plannerâ€¦ model=", MODEL_PLAN);
+  console.log("[Alfred] calling planner… model=", MODEL_PLAN);
   let planRaw = "";
   try {
     planRaw = await chat(
@@ -53,7 +53,7 @@ async function main() {
   let plan;
   try { plan = extractJson(planRaw); }
   catch (e) {
-    console.error("[Alfred] planner JSON invÃ¡lido. preview:", String(planRaw).slice(0,300));
+    console.error("[Alfred] planner JSON inválido. preview:", String(planRaw).slice(0,300));
     throw e;
   }
 
@@ -67,12 +67,12 @@ async function main() {
 
   let loop = 0;
   let score = 0;
-  const maxLoops = Math.min(6, plan?.metrics?.maxLoops ?? 3);
+  const maxLoops = Math.min(6, Number(process.env.ALFRED_MAX_LOOPS||0) || (plan?.metrics?.maxLoops ?? 3));
   const target = Math.min(0.99, Math.max(0.5, plan?.metrics?.targetScore ?? 0.9));
   console.log("[Alfred] target=", target, "maxLoops=", maxLoops);
 
   while (loop < maxLoops && score < target) {
-    console.log("[Alfred] loop", loop+1, "edit phaseâ€¦");
+    console.log("[Alfred] loop", loop+1, "edit phase…");
     for (const t of (plan.tasks || [])) {
       if (!t?.path) continue;
       const fileContent = await readFileSafe(t.path);
@@ -91,7 +91,7 @@ async function main() {
       if (ok) await commitSafe(`[alfred] ${(t.id || "")} ${t.path}`);
     }
 
-    console.log("[Alfred] validate phaseâ€¦");
+    console.log("[Alfred] validate phase…");
     const testRes = await runTests();
     const buildRes = await runBuild();
     const bundleKB = await measureBundle();
@@ -112,7 +112,7 @@ async function main() {
     let ev;
     try { ev = extractJson(evalRaw); }
     catch (e) {
-      console.error("[Alfred] evaluator JSON invÃ¡lido. preview:", String(evalRaw).slice(0,300));
+      console.error("[Alfred] evaluator JSON inválido. preview:", String(evalRaw).slice(0,300));
       throw e;
     }
 

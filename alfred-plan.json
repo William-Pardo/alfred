@@ -4,25 +4,7 @@
       "id": "T1",
       "kind": "modify",
       "path": "index.html",
-      "reason": "Set page title to 'Hola Alfred' to meet acceptance criteria"
-    },
-    {
-      "id": "T2",
-      "kind": "lint",
-      "path": ".",
-      "reason": "Ensure lint passes as per acceptance criteria"
-    },
-    {
-      "id": "T3",
-      "kind": "test",
-      "path": ".",
-      "reason": "Verify build succeeds and bundle size under 300KB"
-    },
-    {
-      "id": "T4",
-      "kind": "modify",
-      "path": "index.html",
-      "reason": "Add basic a11y attributes like lang='es' for non-functional requirements"
+      "reason": "Update the HTML title to 'Hola Alfred' to meet the acceptance criterion that the page loads with this title."
     }
   ],
   "metrics": {
