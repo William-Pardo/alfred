@@ -1,4 +1,4 @@
-﻿import js from "@eslint/js";
+import js from "@eslint/js";
 
 export default [
   { ignores: ["node_modules/**", "dist/**", "alfred/**"] },
@@ -9,7 +9,6 @@ export default [
       sourceType: "module"
     },
     rules: {
-      // Ajusta reglas si molestan durante el bootstrap:
       "no-unused-vars": "off",
       "no-undef": "off"
     }

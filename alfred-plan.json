@@ -3,26 +3,26 @@
     {
       "id": "T1",
       "kind": "modify",
-      "path": "package.json",
-      "reason": "Initialize project configuration with Vite for building and serving, add ESLint for linting, and scripts to meet build and lint acceptance criteria. Include devDependencies for Vite and ESLint to enable bundling under 300KB limit."
+      "path": "index.html",
+      "reason": "Set page title to 'Hola Alfred' to meet acceptance criteria"
     },
     {
       "id": "T2",
-      "kind": "create",
-      "path": "vite.config.js",
-      "reason": "Configure Vite to build the static site, ensuring bundle size constraints and basic setup for the web page."
+      "kind": "lint",
+      "path": ".",
+      "reason": "Ensure lint passes as per acceptance criteria"
     },
     {
       "id": "T3",
-      "kind": "modify",
-      "path": "public/index.html",
-      "reason": "Update the HTML to include the title 'Hola Alfred' as per acceptance criteria, add basic a11y attributes like lang='es' for non-functional requirements."
+      "kind": "test",
+      "path": ".",
+      "reason": "Verify build succeeds and bundle size under 300KB"
     },
     {
       "id": "T4",
-      "kind": "create",
-      "path": ".eslintrc.json",
-      "reason": "Set up ESLint configuration to ensure linting passes the acceptance criteria with basic rules."
+      "kind": "modify",
+      "path": "index.html",
+      "reason": "Add basic a11y attributes like lang='es' for non-functional requirements"
     }
   ],
   "metrics": {
