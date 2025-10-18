@@ -1,9 +1,3 @@
-  "version": "1.0.0",
-  "scripts": {
-    "build": "echo 'Build successful' && exit 0",
-    "lint": "echo 'Lint successful' && exit 0",
-    "test": "echo 'Tests passed' && exit 0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0"
-  }
+    "build": "echo 'Build placeholder' && exit 0",
+    "test": "echo 'Test placeholder' && exit 0",
+    "lint": "echo 'Lint placeholder' && exit 0"
