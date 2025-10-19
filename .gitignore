@@ -1,2 +1,5 @@
-alfred/.env
+﻿node_modules/
+dist/
+alfred-report.json
+alfred-plan.json
 .env
