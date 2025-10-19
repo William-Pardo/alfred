@@ -7,11 +7,11 @@
     "scripts":  {
                     "alfred":  "node -r dotenv/config tools/alfred/alfred/index.js",
                     "alfred:plan":  "node -r dotenv/config tools/alfred/alfred/index.js --plan-only",
-                    "dev":  "vite",
-                    "build":  "vite build",
-                    "preview":  "vite preview --port 5173",
-                    "lint":  "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
-                    "test":  "node tests/smoke.js"
+                    "alfred:offline":  "node -r dotenv/config tools/alfred/alfred/offline.js",
+                    "test":  "node tests/smoke.js",
+                    "lint":  "node scripts/lint-ok.js",
+                    "build":  "node scripts/build-stub.mjs",
+                    "check":  "npm-run-all -s lint test build"
                 },
     "dependencies":  {
                          "dotenv":  "^16.6.1",
@@ -23,6 +23,7 @@
     "devDependencies":  {
                             "@eslint/js":  "^9.9.0",
                             "eslint":  "^9.9.0",
+                            "npm-run-all":  "^4.1.5",
                             "vite":  "^5.4.0"
                         }
 }
