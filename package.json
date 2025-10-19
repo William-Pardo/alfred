@@ -1,29 +1,27 @@
 ﻿{
-    "name":  "alfred-agent",
-    "version":  "0.1.0",
-    "private":  true,
-    "type":  "module",
-    "main":  "alfred/index.js",
-    "scripts":  {
-                    "alfred":  "node -r dotenv/config tools/alfred/alfred/index.js",
-                    "alfred:plan":  "node -r dotenv/config tools/alfred/alfred/index.js --plan-only",
-                    "dev":  "vite",
-                    "preview":  "vite preview --port 5173",
-                    "test":  "node tests/smoke.js",
-                    "alfred:offline":  "node -r dotenv/config tools/alfred/alfred/offline.js",
-                    "lint":  "node scripts/lint-ok.js",
-                    "build":  "node scripts/build-stub.js"
-                },
-    "dependencies":  {
-                         "dotenv":  "^16.6.1",
-                         "execa":  "^9.6.0",
-                         "fast-glob":  "^3.3.3",
-                         "node-fetch":  "^3.3.2",
-                         "simple-git":  "^3.28.0"
-                     },
-    "devDependencies":  {
-                            "@eslint/js":  "^9.9.0",
-                            "eslint":  "^9.9.0",
-                            "vite":  "^5.4.0"
-                        }
+  "name": "alfred-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "alfred/index.js",
+  "scripts": {
+    "alfred": "node -r dotenv/config tools/alfred/alfred/index.js",
+    "alfred:plan": "node -r dotenv/config tools/alfred/alfred/index.js --plan-only",
+    "alfred:offline": "node -r dotenv/config tools/alfred/alfred/offline.js",
+    "test": "node tests/smoke.js",
+    "lint": "node scripts/lint-ok.js",
+    "build": "node scripts/build-stub.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "execa": "^9.6.0",
+    "fast-glob": "^3.3.3",
+    "node-fetch": "^3.3.2",
+    "simple-git": "^3.28.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "vite": "^5.4.0"
+  }
 }

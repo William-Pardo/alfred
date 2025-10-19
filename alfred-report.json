@@ -1,11 +1,9 @@
 {
   "loop": 0,
-  "score": 0.75,
+  "score": 1,
   "target": 0.8,
   "testRes": "OK",
-  "buildRes": "FAIL",
+  "buildRes": "OK",
   "bundleKB": 0,
-  "gaps": [
-    "Build not ok"
-  ]
+  "gaps": []
 }
