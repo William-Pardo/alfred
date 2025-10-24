@@ -1,7 +1,7 @@
 ﻿// tools/alfred/alfred/index.js
 import "dotenv/config";
 import fs from "node:fs/promises";
-import { chat } from "./ll.js"; // usa el router (Groq/OpenRouter)
+import { chat } from "./llm.js"; // usa el router con key rotation
 import { plannerPrompt, editorPrompt, evaluatorPrompt } from "./prompts.js";
 import {
   readBriefToSpec,
