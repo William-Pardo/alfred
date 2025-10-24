@@ -1,0 +1,14 @@
+{
+  "loop": 4,
+  "score": 0,
+  "target": 0.92,
+  "testRes": "NO_TEST_SCRIPT",
+  "buildRes": "NO_BUILD_SCRIPT",
+  "bundleKB": 0,
+  "gaps": [
+    "Criterio: Build ok",
+    "Criterio: Lint ok",
+    "Criterio: Página carga el título \"Hola Alfred\"",
+    "Tests/build OK"
+  ]
+}

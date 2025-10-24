@@ -1,0 +1,38 @@
+{
+  "tasks": [
+    {
+      "id": "T1",
+      "kind": "create",
+      "path": "tools/alfred/index.html",
+      "reason": "Crear archivo index.html para carga del título"
+    },
+    {
+      "id": "T2",
+      "kind": "modify",
+      "path": "tools/alfred/vite.config.js",
+      "reason": "Configurar vite para generar bundle con tamaño menor a 300KB"
+    },
+    {
+      "id": "T3",
+      "kind": "test",
+      "path": "tools/alfred/tests/smoke.js",
+      "reason": "Crear test de carga de título en página"
+    },
+    {
+      "id": "T4",
+      "kind": "lint",
+      "path": "tools/alfred/eslint.config.js",
+      "reason": "Configurar eslint para cumplir con criterios de accesibilidad básica"
+    },
+    {
+      "id": "T5",
+      "kind": "create",
+      "path": "tools/alfred/alfred-plan.json",
+      "reason": "Crear archivo de planificación para seguimiento de tareas"
+    }
+  ],
+  "metrics": {
+    "targetScore": 0.92,
+    "maxLoops": 5
+  }
+}

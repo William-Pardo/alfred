@@ -1,4 +1,5 @@
-﻿import { exec as _exec } from "node:child_process";
+@'
+import { exec as _exec } from "node:child_process";
 import { promisify } from "node:util";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -43,49 +44,27 @@ export async function readFileSafe(p) {
 }
 
 export async function applyUnifiedDiff(diffText) {
-  if (!diffText) return false;
-
-  const protectedFiles = [
-    "package.json", "vite.config.js", "eslint.config.js", "postcss.config.js"
-  ];
-
-  const touchesProtected = protectedFiles.some(f =>
-    new RegExp(`\\+\\+\\+\\s+(?:b\\/)?${f.replace(/\\./g, "\\\\.")}(\\r?\\n|$)`).test(diffText) ||
-    new RegExp(`---\\s+(?:a\\/)?${f.replace(/\\./g, "\\\\.")}(\\r?\\n|$)`).test(diffText)
-  );
-  if (touchesProtected) {
-    console.log("[applyUnifiedDiff] IGNORADO (archivo protegido)");
-    return false;
-  }
-
-  const patch = diffText.trim();
-  if (!/^---\\s/m.test(patch) || !/^\+\+\+\s/m.test(patch)) return false;
-
+  if (!diffText || !diffText.includes("--- ") || !diffText.includes("+++ ")) return false;
+  // Intento aplicar con git apply primero (más confiable)
   try {
-    const { execa } = await import("execa");
-    await execa("git", ["apply", "--whitespace=fix"], { input: patch });
+    await git.raw(["apply", "--whitespace=fix"], diffText);
     return true;
   } catch {
+    // Fallback ultra simple: si el archivo no existe y el diff contiene líneas con "+"
     try {
-      const m = patch.match(/\+\+\+\s+(?:b\/)?(.+)\n/);
+      const m = diffText.match(/\+\+\+\s+b\/(.+)\n/);
       if (!m) return false;
       const filePath = m[1];
-      const plusLines = patch
-        .split("\n")
-        .filter(l => l.startsWith("+") && !l.startsWith("+++"))
-        .map(l => l.slice(1));
-      const pathMod = await import("node:path");
-      const fs = await import("node:fs/promises");
-      await fs.mkdir(pathMod.dirname(filePath), { recursive: true });
+      const plusLines = diffText.split("\n").filter(l => l.startsWith("+") && !l.startsWith("+++")).map(l => l.slice(1));
+      await fs.mkdir(path.dirname(filePath), { recursive: true });
       await fs.writeFile(filePath, plusLines.join("\n"), "utf8");
       return true;
-    } catch {
-      return false;
-    }
+    } catch { return false; }
   }
 }
 
 export async function runTests() {
+  // Ejecuta npm test si existe script
   try {
     const pkg = await readPackageJson();
     if (pkg?.scripts?.test) {
@@ -112,6 +91,7 @@ export async function runBuild() {
 }
 
 export async function measureBundle() {
+  // Heurística: suma tamaños de dist/**
   try {
     const files = await fg(["dist/**/*.*"], { dot: false });
     let total = 0;
@@ -126,12 +106,11 @@ export async function measureBundle() {
 export async function ensureBranch() {
   try {
     const status = await git.status();
-    if (!(status.current && status.current.startsWith("alfred/"))) {
-      const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-      await git.checkoutLocalBranch(`alfred/${stamp}`);
-    }
+    if (status.current && status.current.startsWith("alfred/")) return;
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    await git.checkoutLocalBranch(`alfred/${stamp}`);
   } catch {
-    // si no es repo git, ignorar
+    // Si no es repo git, no pasa nada
   }
 }
 
@@ -140,7 +119,7 @@ export async function commitSafe(msg) {
     await git.add(".");
     await git.commit(msg);
   } catch {
-    // si no es repo git, ignorar
+    // Si no es repo git, ignorar
   }
 }
-
+'@ | Set-Content -Encoding UTF8 .\alfred\tools.js

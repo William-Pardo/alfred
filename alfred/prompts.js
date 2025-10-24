@@ -1,8 +1,9 @@
+@'
 export function plannerPrompt(spec, repoTree, pkgJson) {
   return [
     { role: "system", content:
 `Eres un arquitecto de software.
-Devuelves SOLO un JSON válido, sin Markdown, sin backticks, sin texto extra. Estructura:
+Devuelves SOLO un JSON vÃ¡lido con:
 {
  "tasks":[{"id":"T1","kind":"create|modify|test|lint","path":"...","reason":"..."}],
  "metrics":{"targetScore":0.92,"maxLoops":5}
@@ -18,13 +19,9 @@ PACKAGE_JSON:
 ${JSON.stringify(pkgJson ?? {}, null, 2)}
 
 Reglas:
-- NO modifiques estos archivos base: package.json, vite.config.js, eslint.config.js, postcss.config.js.
-- Si necesitas cambios en build/lint, sugiere tareas alternativas sin tocarlos.
-Reglas:
-- Tareas atómicas (<=20 por ciclo).
+- Tareas atÃ³micas (<=20 por ciclo).
 - Prioriza componentes vinculados al SPEC.
-- Usa el stack detectado.
-- Responde SOLO JSON válido, sin comentarios ni Markdown.`}
+- Usa el stack detectado.`}
   ];
 }
 
@@ -32,8 +29,7 @@ export function editorPrompt(task, fileContent, context) {
   return [
     { role: "system", content:
 `Eres un editor determinista.
-Devuelves SOLO un patch unified diff (git), sin Markdown y sin texto extra.
-Debe empezar con líneas '--- ' y '+++ '.` },
+Devuelves SOLO un patch unified diff (git).` },
     { role: "user", content:
 `TAREA: ${JSON.stringify(task)}
 ARCHIVO_ORIGINAL (${task.path}):
@@ -42,14 +38,14 @@ ${fileContent ?? "<no-existe>"}
 CONTEXTO:
 ${context ?? ""}
 
-Entrega SOLO el diff unificado correcto (sin backticks).` }
+Entrega SOLO el diff unificado empezando por '---' y '+++'.` }
   ];
 }
 
 export function evaluatorPrompt(spec, testRes, buildRes, metrics, kiloLogs) {
   return [
     { role: "system", content:
-`Eres un auditor QA. Devuelves SOLO JSON válido, sin Markdown:
+`Eres un auditor QA. Devuelves SOLO JSON:
 {
  "score": 0..1,
  "gaps": ["..."],
@@ -72,8 +68,9 @@ KILO_LOGS:
 ${kiloLogs ?? ""}
 
 Criterios:
-- Suma por criterios de aceptación cumplidos.
+- Suma por criterios de aceptaciÃ³n cumplidos.
 - Tests/build OK suman. bundleKB alto resta.
-- Devuelve SOLO JSON válido (sin backticks).` }
+- Devuelve JSON vÃ¡lido.` }
   ];
 }
+'@ | Set-Content -Encoding UTF8 .\alfred\prompts.js

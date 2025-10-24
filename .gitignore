@@ -1,5 +1,3 @@
-﻿node_modules/
-dist/
-alfred-report.json
-alfred-plan.json
+# Ignorar secretos
 .env
+alfred/.env
